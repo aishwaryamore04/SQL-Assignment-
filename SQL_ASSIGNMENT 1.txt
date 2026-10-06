@@ -1,0 +1,102 @@
+CREATE DATABASE RetailStoreDB;
+use RetailStoreDB;
+
+create table store_sales3 (
+sale_id INT PRIMARY KEY AUTO_INCREMENT,
+order_date DATE,
+customer_name VARCHAR(50),
+gender VARCHAR(10),
+age INT,
+city VARCHAR(40),
+state VARCHAR(40),
+product_name VARCHAR(60),
+category VARCHAR(40),
+quantity INT,
+unit_price DECIMAL(10,2),
+discount DECIMAL(10,2),
+total_amount DECIMAL(10,2),
+payment_mode VARCHAR(20),
+salesperson VARCHAR(50)
+);
+
+
+INSERT INTO store_sales3 values
+('1001','2026-01-01','Rahul','Male',24,'Delhi','Delhi','Laptop','Electronics',1,55000,5000,50000,'Credit Card','Amit'),
+('1002','2026-01-02','Priya','Female',29,'Delhi','Delhi','Mobile','Electronics',2,18000,1000,35000,'UPI','Rohit'),
+('1003','2026-01-03','Ankit','Male',32,'Noida','UP','Chair','Furniture',4,2500,500,9500,'Cash','Neha'),
+('1004','2026-01-05','Sneha','Female',28,'Mumbai','Maharashtra','Sofa','Furniture',1,30000,2000,28000,'Debit Card','Amit'),
+('1005','2026-01-06','Rohan','Male',35,'Pune','Maharashtra','Television','Electronics',1,45000,3000,42000,'Credit Card','Neha'),
+('1006','2026-01-08','Meena','Female',41,'Jaipur','Rajasthan','Dining Table','Furniture',1,25000,1500,23500,'UPI','Rahul'),
+('1007','2026-01-10','Amit','Male',30,'Delhi','Delhi','Refrigerator','Electronics',1,42000,2000,40000,'Credit Card','Neha'),
+('1008','2026-01-12','Pooja','Female',27,'Lucknow','UP','Washing Machine','Electronics',1,28000,1000,27000,'Cash','Rohit'),
+('1009','2026-01-14','Karan','Male',26,'Chandigarh','Punjab','Office Chair','Furniture',2,4500,500,8500,'UPI','Rahul'),
+('1010','2026-01-15','Komal','Female',31,'Delhi','Delhi','Microwave','Electronics',1,15000,500,14500,'Debit Card','Amit'),
+('1011','2026-01-18','Sahil','Male',36,'Jaipur','Rajasthan','Bed','Furniture',1,38000,3000,35000,'Cash','Neha'),
+('1012','2026-01-19','Ritika','Female',25,'Noida','UP','Laptop','Electronics',1,60000,4000,56000,'Credit Card','Rahul'),
+('1013','2026-01-21','Deepak','Male',38,'Mumbai','Maharashtra','Air Conditioner','Electronics',1,52000,3000,49000,'UPI','Amit'),
+('1014','2026-01-22','Anjali','Female',34,'Pune','Maharashtra','Wardrobe','Furniture',1,32000,2000,30000,'Cash','Neha'),
+('1015','2026-01-23','Manoj','Male',42,'Delhi','Delhi','Mobile','Electronics',3,16000,2000,46000,'UPI','Rohit'),
+('1016','2026-01-25','Neha','Female',29,'Lucknow','UP','Study Table','Furniture',2,7000,1000,13000,'Debit Card','Rahul'),
+('1017','2026-01-26','Tarun','Male',40,'Delhi','Delhi','Television','Electronics',1,47000,2000,45000,'Cash','Amit'),
+('1018','2026-01-27','Shweta','Female',33,'Mumbai','Maharashtra','Sofa','Furniture',1,35000,3000,32000,'Credit Card','Neha'),
+('1019','2026-01-29','Mohit','Male',37,'Jaipur','Rajasthan','Laptop','Electronics',1,62000,5000,57000,'UPI','Rahul'),
+('1020','2026-01-30','Nisha','Female',26,'Delhi','Delhi','Mixer Grinder','Home Appliance',2,4500,500,8500,'Cash','Rohit');
+
+
+-- 1.Display all records.
+select * from store_sales3;
+
+-- Show customer name, city and product purchased.
+select customer_name, city, product_name from store_sales3;
+
+-- Find all customers from Delhi.
+select customer_name from store_sales3 where city = 'Delhi';
+
+-- 	Display all Electronics products.
+select product_name from store_sales3 where category = 'Electronics';
+
+-- Find sales greater than ₹30,000.
+SELECT * FROM store_sales3 WHERE total_amount > 30000;
+
+--  Show customers aged above 30 years
+select * from store_sales3 WHERE age >=30; 
+
+-- Sort records by highest sale amount.
+SELECT * FROM store_sales3 ORDER BY total_amount DESC;
+
+-- Display the first 5 records.
+SELECT * FROM store_sales3 LIMIT 5;
+
+-- Find customers whose names start with 'R'.
+SELECT customer_name FROM store_sales3 WHERE customer_name LIKE 'R%';
+
+-- 	Display all unique cities.
+SELECT DISTINCT city FROM store_sales3;
+
+-- Which city generates the highest sales?
+SELECT city, SUM(total_amount) AS total_sales FROM store_sales3 GROUP BY city
+ORDER BY total_sales DESC LIMIT 1;
+
+-- Which product category earns the maximum revenue?
+SELECT category, SUM(total_amount) AS total_revenue FROM store_sales3 GROUP BY category
+ORDER BY total_revenue DESC LIMIT 1;
+
+-- Which salesperson performs the best?
+SELECT salesperson, SUM(total_amount) AS total_sales FROM store_sales3 GROUP BY salesperson
+ORDER BY total_sales DESC LIMIT 1;
+
+-- Which payment mode is most preferred?
+SELECT payment_mode, COUNT(*) AS total_orders FROM store_sales3 GROUP BY payment_mode
+ORDER BY total_orders DESC LIMIT 1;
+
+-- Which customers purchase frequently?
+SELECT customer_name, COUNT(*) AS purchase_count FROM store_sales3 GROUP BY customer_name
+ORDER BY purchase_count DESC;
+
+-- What are the monthly sales trends?
+SELECT MONTH(order_date) AS month,SUM(total_amount) AS total_sales
+FROM store_sales3
+GROUP BY MONTH(order_date)
+ORDER BY month;
+
+
