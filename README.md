@@ -1,2 +1,9 @@
 # SQL-Assignment-
 SQL Concepts Used
+SELECT
+WHERE
+LIKE
+DISTINCT
+ORDER BY
+LIMIT
+SUM()
